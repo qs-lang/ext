@@ -1,0 +1,57 @@
+{use> ./lib/str}
+{use> ./lib/chr}
+{use> ./lib/qs}
+{use> ./lib/arr}
+{use> ./lib/ext-clc}
+
+{def> base-from-dec> base> dec>
+	{priv> ret> num>
+		{def> num> 0123456789ABCDEF}
+		{def> dec: {dec}}
+		{loop> dec>
+			{def> ret: {cc: {num}: {clc: {dec}> %: {base}}}{ret}}
+			{def> dec: {clc: {dec}> /: {base}}}
+		}
+		{ret}
+	}
+}
+
+{def> base-to-dec> base> val>
+	{priv> ret> num> pow> var> 
+		{def> num> 0123456789ABCDEF}
+		{def> ret> 0}
+		{def> pow> 0}
+		{do> i> 0: {strlen: {val}}>
+			{def> i: {clc: {strlen: {val}}> -: {i}> -> 1}}
+			{str-index-of> var: {num}: {cc: {val}: {i}}}
+
+			{def> ret: {clc: {var-0}> *: {clc-pow: {base}: {pow}}> +: {ret}}}
+			{def> pow: {clc: {pow}> +> 1}}
+		}
+		{ret}
+	}
+}
+
+{def> bin-from-dec> dec>
+	{base-from-dec> 2: {dec}}
+}
+
+{def> oct-from-dec> dec>
+	{base-from-dec> 8: {dec}}
+}
+
+{def> hex-from-dec> dec>
+	{base-from-dec> 16: {dec}}
+}
+
+{def> bin-to-dec> bin>
+	{base-to-dec> 2: {bin}}
+}
+
+{def> oct-to-dec> oct>
+	{base-to-dec> 8: {oct}}
+}
+
+{def> hex-to-dec> hex>
+	{base-to-dec> 16: {hex}}
+}
