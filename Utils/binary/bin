@@ -1,0 +1,96 @@
+{use> ./lib/str}
+{use> ./lib/chr}
+{use> ./lib/qs}
+{use> ./lib/arr}
+{use> ./lib/ext-clc}
+
+{def> bin-and> a> b> 
+	{priv> res>
+		{bin-pad}
+		{do> i> 0: {strlen: {a}}> 
+			{def> res: 
+				{res}{clc: {cc: {a}: {i}}> *: {cc: {b}: {i}}}
+			}
+		}
+		{bin-del-zeros: {res}}
+	}
+}
+
+{def> bin-or> a> b> 
+	{priv> a-len> b-len> res>
+		{bin-pad}
+
+		{do> i> 0: {strlen: {a}}>		
+			{if: {cc: {a}: {i}}> => 1 >
+				{def> res: {res}1}
+			>
+				{if: {cc: {b}: {i}}> => 1 >
+					{def> res: {res}1}
+				>
+					{def> res: {res}0}
+				}
+			}
+		}
+		{bin-del-zeros: {res}}
+	}
+}
+
+
+{def> bin-xor> a> b> 
+	{priv> a-len> b-len> res>
+		{bin-pad}
+
+		{do> i> 0: {strlen: {a}}>		
+			{if: {cc: {a}: {i}}> =: {cc: {b}: {i}} >
+				{def> res: {res}0}
+			>
+				{def> res: {res}1}
+			}
+		}
+		{bin-del-zeros: {res}}
+	}
+}
+
+{def> bin-not> a>
+	{priv> res>
+		{do> i> 0: {strlen: {a}}>		
+			{if: {cc: {a}: {i}}> => 1 >
+				{def> res: {res}0}
+			>
+				{def> res: {res}1}
+			}
+		}
+		{bin-del-zeros: {res}}
+	}
+}
+
+{def> bin-pad>
+	{priv> a-len> b-len>
+		{def> a-len: {strlen: {a}}}
+		{def> b-len: {strlen: {b}}}
+
+		{if: {a-len}> ): {b-len}>
+			{do> i> 0: {clc: {a-len}> -: {b-len}}> {def> b: 0{b}}}
+		>
+			{do> i> 0: {clc: {b-len}> -: {a-len}}> {def> a: 0{a}}}
+		}
+	}
+}
+
+{def> bin-del-zeros> str>
+	{priv> i> t>
+		{def> i> 0}
+		{def> t> 1}
+		{def> str: {str}1}
+		{loop> t>
+			{if: {cc: {str}: {i}}> => 1> 
+				{def> t> 0}
+			>
+				{def> i: {clc: {i}> +> 1}}
+			}		
+		}
+		{if: {i}> =: {clc: {strlen: {str}}> -> 1}> 0>
+			{str-substr: {str}: {i}: {clc: {strlen: {str}}> -: {i}> -> 1}}
+		}
+	}
+}
