@@ -1,0 +1,73 @@
+{use> ./lib/str}
+{use> ./lib/chr}
+{use> ./lib/qs}
+{use> ./lib/arr}
+{use> ./lib/if}
+{use> ./lib/base}
+{use> ./lib/ext-clc}
+
+{def> base64-to> str>
+	{priv> i> t> trojka> bin> 
+		{def> i> 0}
+		{def> t> 1}
+		{loop> t>
+			{if: {i}> ]: {clc: {strlen: {str}}> -> 3}> {def> t> 0}>}
+			
+			{if: {strlen: {str}}> ): {clc: {i}> +> 3}>
+				{def> trojka: {str-substr: {str}: {i}> 3}}
+			>
+				{def> trojka: {str-substr: {str}: {i}: {clc: {strlen: {str}}> -: {i}}}}
+			}
+			{def> bin: 
+				{do> k> 0: {strlen: {trojka}}>
+					{str-pad-left: {bin-from-dec: {asc: {trojka}: {k}}}> 8> 0}
+				}
+			}
+
+			{do> i> 0: {clc: {strlen: {trojka}}> +> 1}>
+				{if: {clc: {i}> *> 6> +> 6}> ): {strlen: {bin}}>
+					{do> l> 0: {clc: {i}> *> 6> +> 6> -: {strlen: {bin}}}>
+						{def> bin: {bin}0}
+					}
+				>}
+				
+				{def> code: {bin-to-dec: {str-substr: {bin}: {clc: {i}> *> 6}> 6}}}
+
+				{if-else: {if-in-range: {code}> 0> 26}>
+																{chr: {clc: {code}> +> 65}}
+								> {if-in-range: {code}> 26> 52}>
+																{chr: {clc: {code}> +> 71}}
+								> {if-in-range: {code}> 52> 62}>
+																{chr: {clc: {code}> -> 4}}
+								> {if-eq: {code}> 62}>
+													{chr: {chr> 43}}			
+								> {chr: {chr> 47}}
+				}
+			}
+
+			{do> j> 0: {clc> 3> -: {strlen: {trojka}}}> =}
+
+			{def> i: {clc: {i}> +> 3}}
+		}
+	}
+}
+
+{def> base64-from> str>
+	{priv> base64-table> concat-bin> padding> 
+		{def> base64-table> ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=}
+		{def> str: {str-replace: {str}> =>}}
+		{def> concat-bin>}
+		{do> i> 0: {strlen: {str}}> 
+			{def> char: {cc: {str}: {i}}}
+			{str-index-of> base64-idx: {base64-table}: {char}}
+			{def> concat-bin: {concat-bin}{str-pad-left: {bin-from-dec: {base64-idx-0}}> 6> 0}}
+		}
+		
+		{def> padding: {clc> 8> -: {clc: {strlen: {concat-bin}}> %> 8}> %> 8}}
+		{do> i> 0: {padding}> {def> concat-bin: {concat-bin}0}}
+		
+		{do> i> 0: {clc: {strlen: {concat-bin}}> /> 8}>
+			{chr: {bin-to-dec: {str-substr: {concat-bin}: {clc: {i}> *> 8}> 8}}}
+		}
+	}
+}
