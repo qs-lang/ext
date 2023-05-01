@@ -1,0 +1,51 @@
+{use> ./lib/str}
+{use> ./lib/chr}
+{use> ./lib/qs}
+{use> ./lib/fs}
+{use> ./lib/arr}
+{use> ./lib/ext-clc}
+
+{def> rand-seed:
+  {if: {os}> ~> _WIN32>
+      {sys: powershell.exe -command "[int64](([datetime]{chr> 58}{chr> 58}UtcNow)-(get-date "1/1/1970")).TotalSeconds"}
+  >}
+  {if: {os}> ~> __linux__>
+      {sys> date +%s}
+  >}
+}
+
+
+{def> rand>
+	{priv> a> c> m>
+		{def> a> 1664525}
+		{def> c> 1013904223}
+		{def> m> 2147483647}
+		{def> rand-seed: {clc: {a}> *: {rand-seed}> +: {c}}}
+		{rand-seed}
+	}
+}
+
+{def> rand-range> min> max>
+	{clc: {clc-abs: {rand}}> %: {max}> +: {min}}
+}
+
+{def> rand-arr> name>
+  {{name}-{rand-range> 0: {{name}-len}}}
+}
+
+
+{def> rand-shuffle> name>
+  {priv> size> tmp> j>
+    {def> size: {{name}-len}}
+    {do> i> 0: {size}>
+      {def> i: {clc: {size}> -> 1> -: {i}}}
+      {def> j: {rand-range> 0: {clc: {i}> +> 1}}}
+
+      {def> tmp: {{name}-{i}}}
+
+      {def: {name}-{i}: {{name}-{j}}}
+
+      {def: {name}-{j}: {tmp}}
+    }
+  }
+}
