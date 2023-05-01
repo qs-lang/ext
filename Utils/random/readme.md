@@ -1,5 +1,5 @@
 # 🎲Rand
-The library provides random number generator along with bunch of usefull macros. It uses [Linear congruential generator] (https://en.wikipedia.org/wiki/Linear_congruential_generator).
+The library provides random number generator along with bunch of usefull macros. It uses [Linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator).
 
 ## 📦Avaliable functions
 ### rand
