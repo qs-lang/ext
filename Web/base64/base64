@@ -1,10 +1,4 @@
-{use> ./lib/str}
-{use> ./lib/chr}
-{use> ./lib/qs}
-{use> ./lib/arr}
-{use> ./lib/if}
 {use> ./lib/base}
-{use> ./lib/ext-clc}
 
 {def> base64-to> str>
 	{priv> i> t> trojka> bin> 
