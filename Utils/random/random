@@ -1,9 +1,4 @@
-{use> ./lib/str}
-{use> ./lib/chr}
-{use> ./lib/qs}
-{use> ./lib/fs}
-{use> ./lib/arr}
-{use> ./lib/ext-clc}
+{use> ./lib/core}
 
 {def> rand-seed:
   {if: {os}> ~> _WIN32>
