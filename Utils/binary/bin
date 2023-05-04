@@ -1,8 +1,4 @@
-{use> ./lib/str}
-{use> ./lib/chr}
-{use> ./lib/qs}
-{use> ./lib/arr}
-{use> ./lib/ext-clc}
+{use> ./lib/core}
 
 {def> bin-and> a> b> 
 	{priv> res>
