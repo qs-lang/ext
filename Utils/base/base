@@ -1,8 +1,4 @@
-{use> ./lib/str}
-{use> ./lib/chr}
-{use> ./lib/qs}
-{use> ./lib/arr}
-{use> ./lib/ext-clc}
+{use> ./lib/core}
 
 {def> base-from-dec> base> dec>
 	{priv> ret> num>
@@ -24,7 +20,6 @@
 		{do> i> 0: {strlen: {val}}>
 			{def> i: {clc: {strlen: {val}}> -: {i}> -> 1}}
 			{str-index-of> var: {num}: {cc: {val}: {i}}}
-
 			{def> ret: {clc: {var-0}> *: {clc-pow: {base}: {pow}}> +: {ret}}}
 			{def> pow: {clc: {pow}> +> 1}}
 		}
