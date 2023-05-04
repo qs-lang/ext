@@ -1,4 +1,4 @@
-# 🎲uri
+# ⚡uri
 The library provides functions for encoding and decoding URIs. These functions can be used to convert special characters in URIs into their respective encoded representations, or to decode an already encoded uri back into its original format. This allows for proper handling of uris in various applications, such as web development or data processing.
 
 ## 🔥Requires
