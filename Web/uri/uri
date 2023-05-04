@@ -1,4 +1,7 @@
+{use> ./lib/str}
+{use> ./lib/arr}
 {use> ./lib/base}
+{use> ./lib/if}
 
 {def> url-char-to-utf8> str>
 	%{hex-from-dec: {asc: {str}> 0}}}
