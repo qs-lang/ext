@@ -1,47 +1,44 @@
-{use> ./lib/str}
-{use> ./lib/arr}
 {use> ./lib/base}
-{use> ./lib/if}
 
-{def> url-char-to-utf8> str>
+{def> uri-char-to-utf8> str>
 	%{hex-from-dec: {asc: {str}> 0}}}
 }
 
-{def> url-utf8-to-char> str>
+{def> uri-utf8-to-char> str>
 	{chr:{hex-to-dec: {str-substr: {str}> 1> 3}}}
 }
 
-{def> url-encode> url>
+{def> uri-encode> uri>
 	{priv> flag> 
-		{do> i> 0: {strlen: {v> url}}>
+		{do> i> 0: {strlen: {v> uri}}>
 			{def> flag> 0}
-			{str-is-lower-at: {v> url}: {i}> {def> flag> 1}>}
-			{str-is-upper-at: {v> url}: {i}> {def> flag> 1}>}
-			{str-is-digit-at: {v> url}: {i}> {def> flag> 1}>}
-			{if: {asc: {v> url}: {i}}> => 45> {def> flag> 1}>}
-			{if: {asc: {v> url}: {i}}> => 46> {def> flag> 1}>}
-			{if: {asc: {v> url}: {i}}> => 95> {def> flag> 1}>}
-			{if: {asc: {v> url}: {i}}> => 126> {def> flag> 1}>}
+			{str-is-lower-at: {v> uri}: {i}> {def> flag> 1}>}
+			{str-is-upper-at: {v> uri}: {i}> {def> flag> 1}>}
+			{str-is-digit-at: {v> uri}: {i}> {def> flag> 1}>}
+			{if: {asc: {v> uri}: {i}}> => 45> {def> flag> 1}>}
+			{if: {asc: {v> uri}: {i}}> => 46> {def> flag> 1}>}
+			{if: {asc: {v> uri}: {i}}> => 95> {def> flag> 1}>}
+			{if: {asc: {v> uri}: {i}}> => 126> {def> flag> 1}>}
 			{if: {flag}> => 1>
-				{cc: {v> url}: {i}}
+				{cc: {v> uri}: {i}}
 			>
-				{url-char-to-utf8: {cc: {v> url}: {i}}}
+				{uri-char-to-utf8: {cc: {v> uri}: {i}}}
 			}
 		}
 	}
 }
 
-{def> url-decode> url>
+{def> uri-decode> uri>
 	{def> i> 0}
 	{def> t> 1}
 	{loop> t>
-		{if: {i}> ]: {strlen: {url}}> {def> t> 0}>}
+		{if: {i}> ]: {strlen: {uri}}> {def> t> 0}>}
 		
-		{if: {cc: {url}: {i}}> ~> %> 
-			{url-utf8-to-char: {str-substr: {url}: {i}> 3}}
+		{if: {cc: {uri}: {i}}> ~> %> 
+			{uri-utf8-to-char: {str-substr: {uri}: {i}> 3}}
 			{def> i: {clc: {i}> +> 2}}
 		> 
-			{cc: {url}: {i}} 
+			{cc: {uri}: {i}} 
 		}
 
 		{def> i: {clc: {i}> +> 1}}
