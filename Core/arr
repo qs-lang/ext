@@ -1,0 +1,125 @@
+
+{def> arr-do> iter> name> expr>
+	{do> i> 0: {{name}-len}>
+		{priv: {iter}>
+			{def: {iter}: {v: {name}-{i}}}
+			{arr-do-2}
+		}
+	}
+}
+
+{def> arr-puts> name>
+	{puts: --------- len({name}) = {{name}-len} {nl}}
+	{do> i> 0: {{name}-len}>
+		{puts: {name}[{i}] = "{v: {name}-{i}}" {nl}}
+	}
+}
+
+{def> arr-push> name> item>
+	{def: {name}-{{name}-len}: {item}}
+	{def: {name}-len: {clc: {{name}-len}> +> 1}}
+}
+
+{def> arr-pop> name>
+	{priv> idx>
+		{def> idx: {clc: {{name}-len}> -> 1}}
+		{{name}-{idx}}
+		{def: {name}-{idx}>}
+		{def: {name}-len: {idx}}
+	}
+}
+
+{def> arr-find> dest> name> str>
+	{arr-rm: {dest}}
+	{do> i> 0: {{name}-len}>
+		{if: {{name}-{i}}> ~: {str}>
+			{arr-push: {dest}: {i}}
+		>}
+	}
+}
+
+{def> arr-rm> name>
+	{do> i> 0: {{name}-len}>
+		{def: {name}-{i}>}
+	}
+	{def: {name}-len> 0}
+}
+
+{def> arr-def> name>
+	{arr-rm: {name}}
+	{def: {name}-len: {clc: {arr-def-len}> -> 1}}
+	{do> i> 0: {{name}-len}>
+		{def: {name}-{i}: {v: arr-def-{clc: {i}> +> 1}}}
+	}
+}
+
+{def> arr-map> name> arg> expr>
+	{do> i> 0: {{name}-len}>
+	 	{priv: {arg}>
+			{def: {arg}: {v: {name}-{i}}}
+			{def: {name}-{i}: {arr-map-2}}
+		}
+	}
+}
+
+{def> arr-reduce> name> arg1> arg1val> arg2> expr>
+	{priv: {arg1}>
+		{def: {arg1}: {arg1val}}
+		{do> i> 0: {{name}-len}>
+			{def: {arg2}: {v: {name}-{i}}}
+			{def: {arg1}: {arr-reduce-4}}
+		}
+		{{arg1}}
+	}
+}
+
+{def> arr-filter> name> arg> expr>
+	{priv> offset: {arg}>
+		{do> i> 0: {{name}-len}>
+			{def: {arg}: {v: {name}-{i}}}
+			{if: {arr-filter-2}> ~> 1>
+				{def: {name}-{sub: {i}: {offset}}: {{name}-{i}}}
+			>
+				{incr> offset}
+			}
+		}
+		{def: {name}-len: {sub: {{name}-len}: {offset}}}
+	}
+}
+
+{def> arr-range> name> from> to> skip>
+	{arr-def: {name}}
+	{def> to: {clc: {to}> -: {from}> /: {skip}> +> 1}}
+	{do> i> 0: {to}> 
+		{def: {name}-{i}: {clc: {i}> *: {skip}> +: {from}}}
+	}
+	{def: {name}-len: {to}}
+}
+
+{def> arr-cat> a> b>
+	{arr-do> elem: {b}>
+		{arr-push: {a}: {elem}}
+	}
+}
+
+{def> arr-last> name>
+	{{name}-{sub: {{name}-len}> 1}}
+}
+
+{def> arr-has> name> elem>
+	{priv> t>
+		{def> t> 1}
+		{loop> t> 
+			{if: {{name}-{sub: {t}> 1}}> ~: {elem}>
+				{if: {arr-has-len}> ]> 3> {arr-has-2}> 1}
+				{def> t> 0}
+			>
+				{incr> t}
+				{if: {t}> ): {{name}-len}>
+					{def> t> 0}
+					{if: {arr-has-len}> ]> 4> {arr-has-3}> 0}
+				>}
+			}
+		}
+	}
+}

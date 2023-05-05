@@ -1,0 +1,7 @@
+
+{> load all core libs }
+{use> ./lib/arr}
+{use> ./lib/str}
+{use> ./lib/clc}
+{use> ./lib/if}
+{use> ./lib/io}
