@@ -2,9 +2,9 @@
 The library provides a function for generating UUIDs (Universally Unique Identifiers) in version 4 format. UUIDs are 128-bit unique identifiers that can be used for a variety of purposes, such as generating unique IDs for database records or as session IDs in web applications. The version 4 UUIDs are generated using random or pseudo-random numbers, and are designed to have a very low probability of collision with other UUIDs.
 
 ## 🔥Requires
--[base](https://github.com/qs-lang/ext/tree/main/Utils/base) library<br>
--[bin](https://github.com/qs-lang/ext/tree/main/Utils/binary) library<br>
--[random](https://github.com/qs-lang/ext/tree/main/Utils/rand) library<br>
+- [base](https://github.com/qs-lang/ext/tree/main/Utils/base) library<br>
+- [bin](https://github.com/qs-lang/ext/tree/main/Utils/binary) library<br>
+- [random](https://github.com/qs-lang/ext/tree/main/Utils/rand) library<br>
 
 
 ## 📦Avaliable functions
