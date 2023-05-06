@@ -1,0 +1,29 @@
+{use> ./lib/core}
+{use> ./lib/rand}
+{use> ./lib/bin}
+{use> ./lib/base}
+
+{def> uuid>
+	{priv> b> fb>
+		{do> i> 0> 16>
+			{def> b: {bin-from-dec: {rand-range> 0> 255}}}
+			{def> b: {bin-shift-left: {b}: {clc: {i}> *> 8}}}
+			{def> fb: {bin-or: {fb}: {b}}}
+		}
+		{def> fb: {str-substr: {fb}> 0> 124}}
+
+		{> 7 bit na 1, 9 bit na 1, 10 bit na 0, 15 bit na 1}
+		{def> fb: {bin-set-bit: {fb}> 7> 1}}
+		{def> fb: {bin-set-bit: {fb}> 9> 1}}
+		{def> fb: {bin-set-bit: {fb}> 10> 0}}
+		{def> fb: {bin-set-bit: {fb}> 15> 1}}
+		{def> fb: 0100{fb}}
+
+
+		{hex-from-bin: {str-substr: {fb}> 0> 32}}-
+		{hex-from-bin: {str-substr: {fb}> 32> 16}}-
+		{hex-from-bin: {str-substr: {fb}> 48> 16}}-
+		{hex-from-bin: {str-substr: {fb}> 64> 16}}-
+		{hex-from-bin: {str-substr: {fb}> 80> 48}}
+	}
+}
