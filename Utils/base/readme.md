@@ -30,7 +30,7 @@ This function takes two arguments: base, number in that base and then converted 
 ```
   {base-to-dec> 16> 4E}
 ```
-> Returns: 78 *known bugs, pending fix
+> Returns: 78
 
 ### hex-from-bin
 This function converts binary number to a hexadecimal one.
