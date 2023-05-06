@@ -21,9 +21,32 @@
 			{def> i: {clc: {strlen: {val}}> -: {i}> -> 1}}
 			{str-index-of> var: {num}: {cc: {val}: {i}}}
 			{def> ret: {clc: {var-0}> *: {clc-pow: {base}: {pow}}> +: {ret}}}
-			{def> pow: {clc: {pow}> +> 1}}
+			{incr> pow}
 		}
 		{ret}
+	}
+}
+
+{def> hex-from-bin> bin>
+	{priv> num> off> i> t> digit>
+		{def> num> 0123456789ABCDEF}
+		{def> off: {mod: {strlen: {bin}}> 4}}
+		{if: {off}> !> 0>
+			{def> off: {clc> 4> -: {off}> +: {strlen: {bin}}}}
+			{def> bin: {str-pad-left: {bin}: {off}> 0}}
+		>}
+		{def> i> 0}
+		{def> t> 1}
+		{loop> t>
+			{if: {i}> ]: {clc: {strlen: {bin}}> -> 4}> {def> t> 0}>}
+			{def> digit> 0}
+			{do> j> 0> 4> 
+				{def> digit: {clc> 2> *: {digit}> +: {cc: {bin}: {add: {i}: {j}}}}}
+			}
+			{cc: {num}: {digit}}
+
+			{def> i: {clc: {i}> +> 4}}
+		}
 	}
 }
 
