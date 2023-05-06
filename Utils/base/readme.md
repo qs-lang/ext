@@ -32,6 +32,13 @@ This function takes two arguments: base, number in that base and then converted 
 ```
 > Returns: 78 *known bugs, pending fix
 
+### hex-from-bin
+This function converts binary number to a hexadecimal one.
+```
+  {hex-from-bin> 1011101011011011111011101111}
+```
+> Returns: BADBEEF
+
 ## *Macros*
 ### bin-from-dec
 ```
