@@ -1,3 +1,4 @@
+{use> ./lib/core}
 {use> ./lib/base}
 
 {def> uri-char-to-utf8> str>
@@ -29,18 +30,20 @@
 }
 
 {def> uri-decode> uri>
-	{def> i> 0}
-	{def> t> 1}
-	{loop> t>
-		{if: {i}> ]: {strlen: {uri}}> {def> t> 0}>}
-		
-		{if: {cc: {uri}: {i}}> ~> %> 
-			{uri-utf8-to-char: {str-substr: {uri}: {i}> 3}}
-			{def> i: {clc: {i}> +> 2}}
-		> 
-			{cc: {uri}: {i}} 
-		}
+	{priv> i> t>
+		{def> i> 0}
+		{def> t> 1}
+		{loop> t>
+			{if: {i}> ]: {strlen: {uri}}> {def> t> 0}>}
+			
+			{if: {cc: {uri}: {i}}> ~> %> 
+				{uri-utf8-to-char: {str-substr: {uri}: {i}> 3}}
+				{def> i: {clc: {i}> +> 2}}
+			> 
+				{cc: {uri}: {i}} 
+			}
 
-		{def> i: {clc: {i}> +> 1}}
+			{def> i: {clc: {i}> +> 1}}
+		}
 	}
 }
