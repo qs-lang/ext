@@ -35,12 +35,33 @@ Takes two binary numbers stored in variables named: a, b and padds them with zer
 ```
 > appends zero to the value inside a, a := 0101
 
+### bin-shift-left
+Shifts bits of binary number to the left by a specified amount.
+```
+  {bin-shift-left> 1010> 2}
+```
+> Returns: 101000
+
+### bin-shift-right
+Shifts bits of binary number to the right by a specified amount.
+```
+  {bin-shift-left> 1010> 2}
+```
+> Returns: 10
+
 ### bin-del-zeros
 Removes proceeding zeros from a given binary number
 ```
   {bin-del-zeros> 00101}
 ```
 > Returns: 101 (without proceeding zeros)
+
+### bin-set-bit
+Sets a specified bit to a specified state in a given binary number.
+```
+  {bin-set-bit> 1010> 0> 1}
+```
+> Returns: 1011
 
 ## 🚛Author
 Maciek Bandura, https://github.com/bandurama
