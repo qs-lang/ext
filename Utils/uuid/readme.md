@@ -4,7 +4,7 @@ The library provides a function for generating UUIDs (Universally Unique Identif
 ## 🔥Requires
 -[base](https://github.com/qs-lang/ext/tree/main/Utils/base) library<br>
 -[bin](https://github.com/qs-lang/ext/tree/main/Utils/binary) library<br>
--[random](https://github.com/qs-lang/ext/tree/main/Utils/random) library<br>
+-[random](https://github.com/qs-lang/ext/tree/main/Utils/rand) library<br>
 
 
 ## 📦Avaliable functions
