@@ -15,7 +15,6 @@
 {def> bin-or> a> b> 
 	{priv> a-len> b-len> res>
 		{bin-pad}
-
 		{do> i> 0: {strlen: {a}}>		
 			{if: {cc: {a}: {i}}> => 1 >
 				{def> res: {res}1}
@@ -87,6 +86,26 @@
 		}
 		{if: {i}> =: {clc: {strlen: {str}}> -> 1}> 0>
 			{str-substr: {str}: {i}: {clc: {strlen: {str}}> -: {i}> -> 1}}
+		}
+	}
+}
+
+{def> bin-shift-left> a> i>
+	{a}{do> i> 0: {i}> 0}
+}
+
+{def> bin-shift-right> a> i>
+	{str-substr: {a}> 0: {clc: {strlen: {a}}> -: {i}}}
+}
+
+{def> bin-set-bit> a> bit> val> 
+	{priv> mask>
+		{def> mask: {bin-shift-left> 1: {bit}}}
+		{if: {val}> => 0> 
+			{def> mask: {bin-not: {str-pad-left: {mask}: {strlen: {a}}> 0}}}
+			{bin-and: {a}: {mask}}
+		>
+			{bin-or: {a}: {mask}}
 		}
 	}
 }
