@@ -1,0 +1,42 @@
+{use> ./lib/core}
+
+{def> romnum-from-dec> dec>
+	{priv> i>
+		{arr-def> val> 1000> 900> 500> 400> 100> 90> 50> 40> 10> 9> 5> 4> 1}	
+		{arr-def> sym> M> CM> D> CD> C> XC> L> XL> X> IX> V> IV> I}
+		{def> i> 0}
+		{while> {if-gt: {dec}> 0}> 
+			{while> {if-gt: {dec}: {sub: {v: val-{i}}> 1}}> 
+				{v: sym-{i}}
+				{def> dec: {sub: {dec}: {v: val-{i}}}}
+			}
+			{incr> i}
+		}
+		{arr-rm> val}
+		{arr-rm> sym}
+	}
+}
+
+{def> romnum-to-dec> rom>
+	{priv> ret> prev> 
+		{arr-def> val> 1000> 900> 500> 400> 100> 90> 50> 40> 10> 9> 5> 4> 1}	
+		{arr-def> sym> M> CM> D> CD> C> XC> L> XL> X> IX> V> IV> I}	
+		{def> ret> 0}
+		{def> prev> 0}
+		{do> i> 0: {strlen: {rom}}> 
+			{arr-find> sym-idx> sym: {cc: {rom}: {i}}}
+			{def> curr: {v: val-{sym-idx-0}}}
+			{if-gt: {curr}: {prev}>
+				{def> ret: {clc> -2> *: {prev}> +: {curr}> +: {ret}}}
+
+			>
+				{def> ret: {add: {ret}: {curr}}}
+			}
+			{def> prev: {curr}}
+		}
+		{ret}
+		{arr-rm> val}
+		{arr-rm> sym}
+		{arr-rm> sym-idx}
+	}
+}
