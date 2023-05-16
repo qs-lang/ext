@@ -1,4 +1,5 @@
 # ⌛Time
+<p align="justify">
 The library provides functions for working with dates and timestamps. It offers a variety of functionalities such as converting dates to timestamps, converting timestamps back to dates in the appropriate format, and retrieving the current date from the system. It also provides functions to perform basic operations on those dates, that is adding and substracting entire dates, hours, seconds and so on.
 
 The conversion functions enable you to convert a specific date into a timestamp, which represents the number of seconds or milliseconds since a particular reference point (usually the Unix epoch). This is useful for storing and manipulating dates in a numeric format.
@@ -6,10 +7,11 @@ The conversion functions enable you to convert a specific date into a timestamp,
 Conversely, you can convert a timestamp back into a human-readable date format using the appropriate formatting function. This allows you to display timestamps in a more understandable and visually appealing manner.
 
 Additionally, the library provides a function to retrieve the current date and time from the system. This feature is helpful when you need to work with the current date for various purposes like logging, time tracking, or scheduling events.
+</p>
 
 
 ## 📖Documentation
-###Formating standard acording to POSIX.
+### Formating standard acording to POSIX.
 | Formatter | Description |
 | :-: | --- |
 | `%a` | shortened **week** name (eg. Mon) |
@@ -30,12 +32,12 @@ Additionally, the library provides a function to retrieve the current date and t
 | `%z` | time zone name |
 | `%t` | timestamp |
 
-###Time calculations
+### Time calculations
 During addition and substraciotns (leep year isn't taken into account):
   1 year - 365 days
   1 month - 30 days
 
-###Internal time representation (**ITR**)
+### Internal time representation (**ITR**)
 Internal functions utilises this format to store and process date and time information.
 ```
   %Y;%m;%d;%H;%M;%s
