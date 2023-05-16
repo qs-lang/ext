@@ -1,4 +1,4 @@
-# ⌛time
+# ⌛Time
 The library provides functions for working with dates and timestamps. It offers a variety of functionalities such as converting dates to timestamps, converting timestamps back to dates in the appropriate format, and retrieving the current date from the system. It also provides functions to perform basic operations on those dates, that is adding and substracting entire dates, hours, seconds and so on.
 
 The conversion functions enable you to convert a specific date into a timestamp, which represents the number of seconds or milliseconds since a particular reference point (usually the Unix epoch). This is useful for storing and manipulating dates in a numeric format.
