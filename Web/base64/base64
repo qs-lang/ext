@@ -26,17 +26,22 @@
 				>}
 				
 				{def> code: {bin-to-dec: {str-substr: {bin}: {clc: {i}> *> 6}> 6}}}
+				{if-else
+					> {if-in-range: {code}> 0> 26}>
+							{chr: {clc: {code}> +> 65}}
 
-				{if-else: {if-in-range: {code}> 0> 26}>
-																{chr: {clc: {code}> +> 65}}
-								> {if-in-range: {code}> 26> 52}>
-																{chr: {clc: {code}> +> 71}}
-								> {if-in-range: {code}> 52> 62}>
-																{chr: {clc: {code}> -> 4}}
-								> {if-eq: {code}> 62}>
-													{chr: {chr> 43}}			
-								> {chr: {chr> 47}}
+					> {if-in-range: {code}> 26> 52}>
+							{chr: {clc: {code}> +> 71}}
+
+					> {if-in-range: {code}> 52> 62}>
+							{chr: {clc: {code}> -> 4}}
+
+					> {if-eq: {code}> 62}>
+							{chr> 43}
+
+					> {chr> 47}
 				}
+
 			}
 
 			{do> j> 0: {clc> 3> -: {strlen: {trojka}}}> =}
