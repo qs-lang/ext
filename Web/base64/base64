@@ -29,16 +29,12 @@
 				{if-else
 					> {if-in-range: {code}> 0> 26}>
 							{chr: {clc: {code}> +> 65}}
-
 					> {if-in-range: {code}> 26> 52}>
 							{chr: {clc: {code}> +> 71}}
-
 					> {if-in-range: {code}> 52> 62}>
 							{chr: {clc: {code}> -> 4}}
-
 					> {if-eq: {code}> 62}>
 							{chr> 43}
-
 					> {chr> 47}
 				}
 
