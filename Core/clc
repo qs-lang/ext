@@ -1,10 +1,10 @@
 
 {def> incr> n>
-	{def: {n}: {clc: {{n}}> +> 1}}
+	{def: {n}: {clc: {v: {n}}> +> 1}}
 }
 
 {def> decr> n>
-	{def: {n}: {clc: {{n}}> -> 1}}
+	{def: {n}: {clc: {v: {n}}> -> 1}}
 }
 
 {def> add> a> b>

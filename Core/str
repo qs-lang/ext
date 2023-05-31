@@ -2,6 +2,9 @@
 {def> nl: {chr> 10}}
 {def> tb: {chr> 9}}
 {def> cl: {chr> 58}}
+{def> ar: {chr> 62}}
+{def> lb> {chr> 123}}
+{def> rb> {chr> 125}}
 
 {def> str-ltrim> str>
 	{priv> nb> 
@@ -34,8 +37,8 @@
   {str-ltrim: {str-rtrim: {v>str}}}
 }
 
-{def> cc> str> idx>
-	{chr: {asc: {v>str}: {idx}}}
+{def> cc>
+	{chr: {asc: {v>cc-0}: {cc-1}}}
 }
 
 {def> str-split-asc> dest> str> code>
@@ -50,7 +53,7 @@
 				{def> off: {clc: {off}> +> 1}}
 				{def: {dest}-{off}>}
 			>
-				{def: {adr}: {{adr}}{chr: {c}}}
+				{def: {adr}: {v: {adr}}{chr: {c}}}
 			}
 		}
 		{def: {dest}-len: {clc: {off}> +> 1}}
@@ -58,12 +61,12 @@
 }
 
 {def> str-split-chr> dest> str> char>
-	{str-split-asc: {dest}: {v>str}: {chr: {char}}}
+	{str-split-asc: {dest}: {v>str}: {asc: {char}> 0}}
 }
 
 {def> str-substr> str> off> len>
 	{do> i> 0: {len}>
-		{cc: {v>str}: {clc: {off}> +: {i}}; }
+		{chr: {asc: {v>str-substr-0}: {clc: {off}> +: {i}}}}
 	}
 }
 
@@ -85,7 +88,7 @@
 				{def: {dest}-{off}>}
 			>
 				{def> adr: {dest}-{off}}
-				{def: {adr}: {{adr}}{cc: {v>str}: {idx}}}
+				{def: {adr}: {v: {adr}}{cc: {v>str}: {idx}}}
 				{def> i: {clc: {i}> -> 1}}
 			}
 		}
@@ -94,9 +97,9 @@
 }
 
 {def> str-join> arr> sub>
-	{do> i> 0: {{arr}-len}>
-		{{arr}-{i}}
-		{if: {clc: {i}> +> 1}> (: {{arr}-len}> 
+	{do> i> 0: {v: {arr}-len}>
+		{v: {arr}-{i}}
+		{if: {clc: {i}> +> 1}> (: {v: {arr}-len}> 
 			{sub}
 		>}
 	}
@@ -114,8 +117,8 @@
 		{def> sublen: {strlen: {sub}}}
 		{do> i> 0: {clc: {strlen: {v>str}}> -: {sublen}> +> 1}>
 			{if: {str-substr: {v>str}: {i}: {sublen}}> ~: {sub}>
-				{def: {dest}-{{dest}-len}: {i}}
-				{def: {dest}-len: {clc: {{dest}-len}> +> 1}}
+				{def: {dest}-{v: {dest}-len}: {i}}
+				{def: {dest}-len: {clc: {v: {dest}-len}> +> 1}}
 			>}
 		}
 	}
@@ -166,5 +169,20 @@
 		{str-is-digit-at-2}
 	> 
 		{str-is-digit-at-3}
+	}
+}
+
+{def> str-safe> pstr> c1> c2> c3> c4>
+	{priv> code>
+		{do> i> 0: {strlen: {v: {pstr}}}>
+			{def> code: {asc: {v: {pstr}}: {i}}}
+			{if-match: {code}>
+				123> {c1}>
+				125> {c2}>
+				58> {c3}>
+				62> {c4}>
+				{chr: {code}}
+			}
+		}
 	}
 }

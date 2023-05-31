@@ -1,9 +1,9 @@
 
 {def> if-op> op> name>
-	{if: {{name}-0}: {op}: {{name}-1}> 
-		{if: {{name}-len}> ~> 4> {{name}-2}> 1}
+	{if: {v: {name}-0}: {op}: {v: {name}-1}> 
+		{if: {v: {name}-len}> ~> 4> {e: {v: {name}-2}}> 1}
 	> 
-		{if: {{name}-len}> ~> 4> {{name}-3}> 0}
+		{if: {v: {name}-len}> ~> 4> {e: {v: {name}-3}}> 0}
 	}
 }
 
@@ -62,17 +62,32 @@
 		{def> last: {clc: {if-else-len}> -> 1}}
 
 		{loop> brk>
-			{if: {if-else-{i}}> ~> 1>
+			{if: {e: {v: if-else-{i}}}> ~> 1>
 				{def> brk> 0}
-				{if-else-{clc: {i}> +> 1}}
+				{e: {v: if-else-{clc: {i}> +> 1}}}
 			>}
 			
 			{def> i: {clc: {i}> +> 2}}
 			{if: {i}> ]: {last}>
 				{def> brk> 0}
-				{if-else-{last}}
+				{e: {v: if-else-{last}}}
 			>}
 		}
 	}
 }
 
+{def> if-match>
+	{priv> off> did>
+		{def> did> 0}
+		{do> i> 0: {clc: {if-match-len}> /> 2> -> 1}>
+			{def> off: {clc: {i}> *> 2> +> 1}}
+			{if: {v: if-match-{off}}> ~: {if-match-0}>
+				{e: {v: if-match-{add: {off}> 1}}}
+				{def> did> 1}
+			>}
+		}
+		{if: {did}> => 0>
+			{e: {v: if-match-{sub: {if-match-len}> 1}}}
+		>}
+	}
+}

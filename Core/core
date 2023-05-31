@@ -1,7 +1,42 @@
 
-{> load all core libs }
 {use> ./lib/arr}
 {use> ./lib/str}
 {use> ./lib/clc}
 {use> ./lib/if}
 {use> ./lib/io}
+
+
+{def> while> wtest> wexpr>
+	{priv> t> 
+		{def> t: {wtest}}
+		{loop> t>
+			{wexpr}
+			{def> t: {wtest}}
+		}
+	    }
+}
+
+{def> for> iter> beg> end> skip> expr>
+	{priv> test: {iter}>
+		{def> test: {lb}{if-ls: {beg}: {end}> if-ls> if-gt}{cl} {qq: {iter}}{ar} {end}{rb}}
+		{def: {iter}: {beg}}
+		{while> {test}>
+		 	{expr}
+			{def: {iter}: {clc: {v: {iter}}> +: {skip}}}
+		}
+	}
+}
+
+{def> sys> cmd> {io> t: {v: cmd}}}
+{def> puts> str> {io> p: {v: str}}}
+
+{def> qq>
+	{chr> 123}
+	{do> i> 0: {qq-len}>
+		{v: qq-{i}}
+		{if: {i}> (: {sub: {qq-len}> 1}>
+			{chr> 62}
+		>}
+	}
+	{chr> 125}
+}
