@@ -1,8 +1,8 @@
 
 {def> arr-do> iter> name> expr>
-	{do> i> 0: {v: {name}-len}>
+	{do> arr-do-i> 0: {v: {name}-len}>
 		{priv: {iter}>
-			{def: {iter}: {v: {name}-{i}}}
+			{def: {iter}: {v: {name}-{arr-do-i}}}
 			{arr-do-2}
 		}
 	}
@@ -16,6 +16,9 @@
 }
 
 {def> arr-push> name> item>
+	{if: {v: {name}-len}> ~>>
+		{def: {name}-len> 0}
+	>}
 	{def: {name}-{v: {name}-len}: {item}}
 	{def: {name}-len: {clc: {v: {name}-len}> +> 1}}
 }
@@ -74,16 +77,16 @@
 }
 
 {def> arr-filter> name> arg> expr>
-	{priv> offset: {arg}>
+	{priv> arr-filter-off: {arg}>
 		{do> i> 0: {v: {name}-len}>
 			{def: {arg}: {v: {name}-{i}}}
 			{if: {arr-filter-2}> ~> 1>
-				{def: {name}-{sub: {i}: {offset}}: {v: {name}-{i}}}
+				{def: {name}-{sub: {i}: {arr-filter-off}}: {v: {name}-{i}}}
 			>
-				{incr> offset}
+				{incr> arr-filter-off}
 			}
 		}
-		{def: {name}-len: {sub: {v: {name}-len}: {offset}}}
+		{def: {name}-len: {sub: {v: {name}-len}: {arr-filter-off}}}
 	}
 }
 
@@ -107,19 +110,26 @@
 }
 
 {def> arr-has> name> elem>
-	{priv> t>
-		{def> t> 1}
-		{loop> t> 
-			{if: {v: {name}-{sub: {t}> 1}}> ~: {elem}>
+	{priv> arr-has-t>
+		{def> arr-has-t> 1}
+		{loop> arr-has-t> 
+			{if: {v: {name}-{sub: {arr-has-t}> 1}}> ~: {elem}>
 				{if: {arr-has-len}> ]> 3> {arr-has-2}> 1}
-				{def> t> 0}
+				{def> arr-has-t> 0}
 			>
-				{incr> t}
-				{if: {t}> ): {v: {name}-len}>
-					{def> t> 0}
+				{incr> arr-has-t}
+				{if: {arr-has-t}> ): {v: {name}-len}>
+					{def> arr-has-t> 0}
 					{if: {arr-has-len}> ]> 4> {arr-has-3}> 0}
 				>}
 			}
 		}
 	}
+}
+
+{def> arr-ref> dict> key> value>
+	{arr-has: {dict}-keys: {key}>>
+		{arr-push: {dict}-keys: {key}}
+	}
+	{def: {dict}-{key}: {v> value}}
 }
