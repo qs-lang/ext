@@ -1,0 +1,18 @@
+
+{def> SCHED-len> 0}
+{def> SCHEDEXPR-len> 0}
+
+{def> yield> time> expr>
+	{arr-push> SCHED: {clc: {v> time}> +: {io> u}}}
+	{arr-push> SCHEDEXPR: {v> expr}}
+}
+
+{def> sched>
+	{do> i: {clc: {SCHED-len}> -> 1}> -1>
+		{if: {v: SCHED-{i}}> [: {io> u}>
+			{e: {v: SCHEDEXPR-{i}}}
+			{arr-unset> SCHED: {i}}
+			{arr-unset> SCHEDEXPR: {i}}
+		>}
+	}
+}
