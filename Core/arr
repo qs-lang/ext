@@ -19,7 +19,7 @@
 	{if: {v: {name}-len}> ~>>
 		{def: {name}-len> 0}
 	>}
-	{def: {name}-{v: {name}-len}: {item}}
+	{def: {name}-{v: {name}-len}: {v> item}}
 	{def: {name}-len: {clc: {v: {name}-len}> +> 1}}
 }
 
@@ -132,4 +132,12 @@
 		{arr-push: {dict}-keys: {key}}
 	}
 	{def: {dict}-{key}: {v> value}}
+}
+
+{def> arr-unset> name> idx>
+	{do> i: {idx}: {clc: {v: {name}-len}> -> 1}>
+		{def: {name}-{i}: {v: {name}-{clc: {i}> +> 1}}}
+	}
+	{def: {name}-{clc: {v: {name}-len}> -> 1}> }
+	{def: {name}-len: {clc: {v: {name}-len}> -> 1}}
 }
