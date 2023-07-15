@@ -69,10 +69,10 @@ For simplicity reason, scheduler consists of two *index linked* arrays:
 `SCHED` and `SCHEDEXPR`, first one contains timings and the second one
 contains expressions that are yielded in time. 
 
-`yield` pushes elements to their respective arrays, `expr` is not changed,
-however `time` has the current timestamp added to it, so that when it is later
-used to determine when-to execute expression from respective SCHEDEXPR array.
-`sched` loops throught SCHED array and checks if the time has come to evaluate
-yielded expression, if timestamp in SCHED is older then current timestamp, 
-then exoression from respective array is evaluated and then both elements 
-are remopved from their arrays.
+`yield` pushes elements to their respective arrays, as for arguments, `expr` is not changed,
+however `time` has the current timestamp added to it, so that it is later
+used to determine exactly when to execute yielded expressions.
+`sched` loops throught SCHED array and checks if it is right time to evaluate
+yielded expression, if timestamp in SCHED is older then current system timestamp, 
+then expression from respective array is evaluated and then both elements 
+are removed from their arrays.
